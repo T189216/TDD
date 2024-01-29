@@ -9,5 +9,9 @@ class AccountTest {
     @Test
     void testAccount() {
         Account account = new Account();
+
+        if (account == null) {
+            throw new Exception("계좌생성 실패");
+        }
     }
 }
