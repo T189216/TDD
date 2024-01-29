@@ -11,7 +11,11 @@ class AccountTest {
         Account account = new Account();
 
         if (account == null) {
-            throw new Exception("계좌생성 실패");
+            try {
+                throw new Exception("계좌생성 실패");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
