@@ -1,5 +1,6 @@
 package com.ll.ttd;
 
+import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,11 +10,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest
 class AccountTest {
+    private Account account;
 
     @Test
     @DisplayName("계좌 생성")
     public void testAccount() throws Exception {
-        Account account = new Account(10000);
+        setup();
 
         if (account == null) {
             try {
@@ -27,7 +29,7 @@ class AccountTest {
     @Test
     @DisplayName("잔고 조회")
     public void testGetBalance() throws Exception {
-        Account account = new Account(10000);
+        setup();
         assertEquals(10000, account.getBalance());
 
         account = new Account(1000);
@@ -37,10 +39,14 @@ class AccountTest {
         assertEquals(0, account.getBalance());
     }
 
+    public void setup() {
+        account = new Account(10000);
+    }
+
     @Test
     @DisplayName("입금")
     public void testDeposit() throws Exception {
-        Account account = new Account(10000);
+        setup();
         account.deposit(1000);
         assertEquals(11000, account.getBalance());
     }
@@ -48,7 +54,7 @@ class AccountTest {
     @Test
     @DisplayName("출금")
     public void testWithdraw() throws Exception {
-        Account account = new Account(10000);
+        setup();
         account.withdraw(1000);
         assertEquals(9000, account.getBalance());
     }
